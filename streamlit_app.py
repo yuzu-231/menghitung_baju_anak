@@ -8,7 +8,7 @@ st.title("Baju Anak")
 
 # Data baju anak
 baju_anak = [
-    {"Nama": "Baju Anak Motif Dinosaurus", "Harga": 100000, "Gambar": "image/baju_dino.jpg"},
+    {"Nama": "Baju Anak Motif Dinosaurus", "Harga": 100000, "Gambar": "image/dino.jpg"},
     {"Nama": "Baju Anak Motif Bunga", "Harga": 95000, "Gambar": "https://via.placeholder.com/300x300?text=Bunga"},
     {"Nama": "Baju Anak Motif Mobil", "Harga": 105000, "Gambar": "https://via.placeholder.com/300x300?text=Mobil"},
     {"Nama": "Baju Anak Motif Hewan", "Harga": 110000, "Gambar": "https://via.placeholder.com/300x300?text=Hewan"},
@@ -29,7 +29,7 @@ for baju in baju_anak:
     
     with col1:
         image = Image.open(baju["Gambar]")
-        st.image(img, use_column_width=True)
+        st.image(image, use_column_width=True)
         
     with col2:
         st.subheader(baju["Nama"])
