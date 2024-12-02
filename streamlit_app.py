@@ -19,6 +19,13 @@ baju_anak = [
     {"Nama": "Baju Anak Motif Bintang", "Harga": 100000, "Gambar": "https://via.placeholder.com/300x300?text=Bintang"},
     {"Nama": "Baju Anak Motif Gunung", "Harga": 85000, "Gambar": "https://via.placeholder.com/300x300?text=Gunung"},
 ]
+image = image.open("images/dino.jpg")
+st.image(image, caption="Baju Anak Motif Dinosaurus")
+uploaded_file = st.file_uploader("Upload gambar baju" , type=["jpg","png"]
+                                 
+if uploaded_file is not none:
+   image = image.open(uploaded_file)
+   st.image(image, caption="Gambar yang di unggah", use_column_width=True)
 
 # Inisialisasi total harga
 total_harga = 0
