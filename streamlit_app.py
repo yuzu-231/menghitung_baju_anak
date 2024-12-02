@@ -8,7 +8,7 @@ st.title("Katalog Baju Anak dengan Perhitungan Total")
 
 # Data baju anak (kombinasi URL dan gambar lokal)
 baju_anak = [
-    {"Nama": "Baju Anak Motif Dinosaurus", "Harga": 100000, "Gambar": "https://via.placeholder.com/300x300?text=Dinosaurus"},
+    {"Nama": "Baju Anak Motif Dinosaurus", "Harga": 100000, "Gambar": "image/dino.jpgS"},
     {"Nama": "Baju Anak Motif Bunga", "Harga": 95000, "Gambar": "https://via.placeholder.com/300x300?text=Bunga"},
     {"Nama": "Baju Anak Motif Mobil", "Harga": 105000, "Gambar": "images/mobil.jpg"},  # Lokal
     {"Nama": "Baju Anak Motif Hewan", "Harga": 110000, "Gambar": "images/hewan.jpg"},  # Lokal
