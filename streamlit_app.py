@@ -54,3 +54,21 @@ st.write(f"*Rp {total_harga:,}*")
 # Tombol beli
 if st.button("Beli Sekarang"):
     st.success("Terima kasih atas pembelian Anda!")
+
+
+import os
+
+# Path folder gambar
+folder_path = "images/"
+
+# Periksa apakah folder ada
+if os.path.exists(folder_path):
+    st.write(f"Folder '{folder_path}' ditemukan.")
+else:
+    st.error(f"Folder '{folder_path}' tidak ditemukan. Pastikan path benar.")
+
+# Periksa izin baca pada folder
+if os.access(folder_path, os.R_OK):
+    st.write(f"Streamlit memiliki izin membaca pada folder '{folder_path}'.")
+else:
+    st.error(f"Streamlit tidak memiliki izin membaca pada folder '{folder_path}'. Periksa izin file/folder.")
