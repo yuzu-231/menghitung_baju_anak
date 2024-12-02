@@ -8,7 +8,7 @@ st.title("Baju Anak")
 
 # Data baju anak
 baju_anak = [
-    {"Nama": "Baju Anak Motif Dinosaurus", "Harga": 100000, "Gambar": "https://www.lazada.co.id/tag/kaos-dinosaurus/"},
+    {"Nama": "Baju Anak Motif Dinosaurus", "Harga": 100000, "Gambar": "https://via.placeholder.com/300x300?text=Dinosaurus"},
     {"Nama": "Baju Anak Motif Bunga", "Harga": 95000, "Gambar": "https://via.placeholder.com/300x300?text=Bunga"},
     {"Nama": "Baju Anak Motif Mobil", "Harga": 105000, "Gambar": "https://via.placeholder.com/300x300?text=Mobil"},
     {"Nama": "Baju Anak Motif Hewan", "Harga": 110000, "Gambar": "https://via.placeholder.com/300x300?text=Hewan"},
@@ -17,7 +17,7 @@ baju_anak = [
     {"Nama": "Baju Anak Motif Polkadot", "Harga": 90000, "Gambar": "https://via.placeholder.com/300x300?text=Polkadot"},
     {"Nama": "Baju Anak Motif Pelangi", "Harga": 115000, "Gambar": "https://via.placeholder.com/300x300?text=Pelangi"},
     {"Nama": "Baju Anak Motif Bintang", "Harga": 100000, "Gambar": "https://via.placeholder.com/300x300?text=Bintang"},
-    {"Nama": "Baju Anak Motif Geometri", "Harga": 92000, "Gambar": "https://via.placeholder.com/300x300?text=Geometri"},
+    {"Nama": "Baju Anak Motif Geometri", "Harga": 92000, "Gambar": "https://via.placeholder.com/300x300?text=Gunung"},
 ]
 
 # Inisialisasi total harga
