@@ -44,4 +44,4 @@ st.write(f"*Rp {total_harga:,}*")
 
 # Tombol beli
 if st.button("Beli Sekarang"):
-st.success("Terima kasih atas pembelian Anda!")
+   st.success("Terima kasih atas pembelian Anda!")
