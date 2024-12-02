@@ -54,39 +54,3 @@ st.write(f"*Rp {total_harga:,}*")
 # Tombol beli
 if st.button("Beli Sekarang"):
     st.success("Terima kasih atas pembelian Anda!")
-
-
-import os
-
-# Path folder gambar
-folder_path = "images/"
-
-# Periksa apakah folder ada
-if os.path.exists(folder_path):
-    st.write(f"Folder '{folder_path}' ditemukan.")
-else:
-    st.error(f"Folder '{folder_path}' tidak ditemukan. Pastikan path benar.")
-
-# Periksa izin baca pada folder
-if os.access(folder_path, os.R_OK):
-    st.write(f"Streamlit memiliki izin membaca pada folder '{folder_path}'.")
-else:
-    st.error(f"Streamlit tidak memiliki izin membaca pada folder '{folder_path}'. Periksa izin file/folder.")
-
-
-
-
-
-for baju in baju_anak:
-    if not baju["Gambar"].startswith("http"):  # Hanya periksa file lokal
-        file_path = baju["Gambar"]
-        if os.path.exists(file_path):
-            if os.access(file_path, os.R_OK):
-                st.write(f"File '{file_path}' dapat diakses.")
-            else:
-                st.error(f"File '{file_path}' tidak memiliki izin baca.")
-        else:
-            st.error(f"File '{file_path}' tidak ditemukan.")
-
-ls -ld images/
-chmod +r images/
