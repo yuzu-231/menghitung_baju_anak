@@ -31,7 +31,7 @@ for baju in baju_anak:
 baju = st.number_input("masukan baju anak yg ingin dibeli :" ,0)
 jb = st.number_input("masukan jumlah baju :",0)
 
-if st.button("Hitung Volume", type="primary"):
+if st.button("Hitung Jumlah", type="primary"):
   loading = st.progress(0)
   for i in range(100):
     time.sleep(0.01)
