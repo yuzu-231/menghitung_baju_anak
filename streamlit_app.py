@@ -28,13 +28,12 @@ for baju in baju_anak:
     col1, col2 = st.columns([1, 3])
     
     with col1:
-        response = requests.get(baju["Gambar"])
-        img = Image.open(BytesIO(response.content))
+        img = Image.open(baju["Gambar")
         st.image(img, use_column_width=True)
         
     with col2:
         st.subheader(baju["Nama"])
-        st.write(f"*Harga:* Rp {baju['Harga']:,}")
+        st.write(f"**Harga:** Rp {baju['Harga']:,}")
         jumlah = st.number_input(f"Jumlah untuk {baju['Nama']}", min_value=0, max_value=10, step=1, key=baju["Nama"])
         total_harga += jumlah * baju["Harga"]
 
