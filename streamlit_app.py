@@ -1,7 +1,11 @@
 import streamlit as st
 
-st.title("Menghitung_Baju_Anak")
+st.title("Menghitung Baju Anak")
 import streamlit as st
+
+baju = int(input("masukan baju anak yg ingin dibeli :" )
+jumlah baju = int(input("masukan jumlah baju :")
+
 
 # Data baju anak
 baju_anak = [
