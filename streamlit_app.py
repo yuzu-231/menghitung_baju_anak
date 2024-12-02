@@ -28,6 +28,7 @@ for baju in baju_anak:
     st.write(f"*Harga*: Rp{baju['Harga']:,}")
     st.write("---")
 
+st.title
 baju = int(input("masukan baju anak yg ingin dibeli :" )
 jumlah baju = int(input("masukan jumlah baju :")
                   
