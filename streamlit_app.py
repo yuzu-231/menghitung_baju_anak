@@ -8,16 +8,16 @@ st.title("Katalog Baju Anak dengan Perhitungan Total")
 
 # Data baju anak (kombinasi URL dan gambar lokal)
 baju_anak = [
-    {"Nama": "Baju Anak Motif Dinosaurus", "Harga": 100000, "Gambar": "images/dino.jpg"},
-    {"Nama": "Baju Anak Motif Bunga", "Harga": 95000, "Gambar": "images/bunga.jpg"},
-    {"Nama": "Baju Anak Motif Mobil", "Harga": 105000, "Gambar": "images/mobil.jpg"},  
-    {"Nama": "Baju Anak Motif Hewan", "Harga": 110000, "Gambar": "images/hewan.jpg"}, 
-    {"Nama": "Baju Anak Motif Buah", "Harga": 98000, "Gambar": "images/buah.jpg"},
-    {"Nama": "Baju Anak Motif Kartun", "Harga": 120000, "Gambar": "images/kartun.jpg"},
-    {"Nama": "Baju Anak Motif Polkadot", "Harga": 90000, "Gambar": "images/polkadot.jpg"}, 
-    {"Nama": "Baju Anak Motif Pelangi", "Harga": 115000, "Gambar": "images/pelangi.jpg"},
-    {"Nama": "Baju Anak Motif Bintang", "Harga": 100000, "Gambar": "images/bintang.jpg"},
-    {"Nama": "Baju Anak Motif Luar Angkasa", "Harga": 92000, "Gambar": "images/luar angkasa.jpg"},
+    {"Nama": "Baju Anak Motif Dinosaurus", "Harga": 100000, "Gambar": "images/Dino.jpg"},
+    {"Nama": "Baju Anak Motif Bunga", "Harga": 95000, "Gambar": "images/Bunga.jpg"},
+    {"Nama": "Baju Anak Motif Mobil", "Harga": 105000, "Gambar": "images/Mobil.jpg"},  
+    {"Nama": "Baju Anak Motif Hewan", "Harga": 110000, "Gambar": "images/Hewan.jpg"}, 
+    {"Nama": "Baju Anak Motif Buah", "Harga": 98000, "Gambar": "images/Buah.jpg"},
+    {"Nama": "Baju Anak Motif Kartun", "Harga": 120000, "Gambar": "images/Kartun.jpg"},
+    {"Nama": "Baju Anak Motif Polkadot", "Harga": 90000, "Gambar": "images/Polkadot.jpg"}, 
+    {"Nama": "Baju Anak Motif Pelangi", "Harga": 115000, "Gambar": "images/Pelangi.jpg"},
+    {"Nama": "Baju Anak Motif Bintang", "Harga": 100000, "Gambar": "images/Bintang.jpg"},
+    {"Nama": "Baju Anak Motif Luar Angkasa", "Harga": 92000, "Gambar": "images/Luar angkasa.jpg"},
 ]
 
 # Inisialisasi total harga
