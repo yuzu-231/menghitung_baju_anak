@@ -8,16 +8,16 @@ st.title("Katalog Baju Anak dengan Perhitungan Total")
 
 # Data baju anak (kombinasi URL dan gambar lokal)
 baju_anak = [
-    {"Nama": "Baju Anak Motif Dinosaurus", "Harga": 100000, "Gambar": "image/dino.jpg"},
-    {"Nama": "Baju Anak Motif Bunga", "Harga": 95000, "Gambar": "https://via.placeholder.com/300x300?text=Bunga"},
-    {"Nama": "Baju Anak Motif Mobil", "Harga": 105000, "Gambar": "images/mobil.jpg"},  # Lokal
-    {"Nama": "Baju Anak Motif Hewan", "Harga": 110000, "Gambar": "images/hewan.jpg"},  # Lokal
-    {"Nama": "Baju Anak Motif Buah", "Harga": 98000, "Gambar": "https://via.placeholder.com/300x300?text=Buah"},
-    {"Nama": "Baju Anak Motif Kartun", "Harga": 120000, "Gambar": "https://via.placeholder.com/300x300?text=Kartun"},
-    {"Nama": "Baju Anak Motif Polkadot", "Harga": 90000, "Gambar": "images/polkadot.jpg"},  # Lokal
-    {"Nama": "Baju Anak Motif Pelangi", "Harga": 115000, "Gambar": "https://via.placeholder.com/300x300?text=Pelangi"},
-    {"Nama": "Baju Anak Motif Bintang", "Harga": 100000, "Gambar": "images/bintang.jpg"},  # Lokal
-    {"Nama": "Baju Anak Motif Geometri", "Harga": 92000, "Gambar": "https://via.placeholder.com/300x300?text=Geometri"},
+    {"Nama": "Baju Anak Motif Dinosaurus", "Harga": 100000, "Gambar": "images/dino.jpg"},
+    {"Nama": "Baju Anak Motif Bunga", "Harga": 95000, "Gambar": "images/bunga.jpg"},
+    {"Nama": "Baju Anak Motif Mobil", "Harga": 105000, "Gambar": "images/mobil.jpg"},  
+    {"Nama": "Baju Anak Motif Hewan", "Harga": 110000, "Gambar": "images/hewan.jpg"}, 
+    {"Nama": "Baju Anak Motif Buah", "Harga": 98000, "Gambar": "images/buah.jpg"},
+    {"Nama": "Baju Anak Motif Kartun", "Harga": 120000, "Gambar": "images/kartun.jpg"},
+    {"Nama": "Baju Anak Motif Polkadot", "Harga": 90000, "Gambar": "images/polkadot.jpg"}, 
+    {"Nama": "Baju Anak Motif Pelangi", "Harga": 115000, "Gambar": "images/pelangi.jpg"},
+    {"Nama": "Baju Anak Motif Bintang", "Harga": 100000, "Gambar": "images/bintang.jpg"},
+    {"Nama": "Baju Anak Motif Luar Angkasa", "Harga": 92000, "Gambar": "images/luar angkasa.jpg"},
 ]
 
 # Inisialisasi total harga
