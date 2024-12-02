@@ -27,10 +27,15 @@ for baju in baju_anak:
     st.write(f"*Motif*: {baju['Motif']}")
     st.write(f"*Harga*: Rp{baju['Harga']:,}")
     st.write("---")
+ 
+baju = st.number_input int(input("masukan baju anak yg ingin dibeli :" )
+jumlah baju = st.number_input int(input("masukan jumlah baju :")
 
-
-st.title baju = int(input("masukan baju anak yg ingin dibeli :" )
-st.title jumlah baju = int(input("masukan jumlah baju :")
-                  
+if st.button("Hitung Volume", type="primary"):
+  loading = st.progress(0)
+  for i in range(100):
+    time.sleep(0.01)
+    loading.progress(i+1)
+      
 # Footer
 st.write("Terima kasih telah mengunjungi aplikasi kami!")
