@@ -28,8 +28,8 @@ for baju in baju_anak:
     st.write(f"*Harga*: Rp{baju['Harga']:,}")
     st.write("---")
  
-baju = st.number_input int(input("masukan baju anak yg ingin dibeli :" )
-jumlah baju = st.number_input int(input("masukan jumlah baju :")
+baju = st.number_input("masukan baju anak yg ingin dibeli :" )
+jumlah baju = st.number_input("masukan jumlah baju :")
 
 if st.button("Hitung Volume", type="primary"):
   loading = st.progress(0)
