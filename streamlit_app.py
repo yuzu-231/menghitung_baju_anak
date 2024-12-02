@@ -44,9 +44,4 @@ st.write(f"*Rp {total_harga:,}*")
 
 # Tombol beli
 if st.button("Beli Sekarang"):
-   for i in range(100)
-    loading = st.progress(0)
-    time.sleep(0.01)
-    loading.progress(i+1)
-
 st.success("Terima kasih atas pembelian Anda!")
