@@ -28,7 +28,7 @@ for baju in baju_anak:
     col1, col2 = st.columns([1, 3])
     
     with col1:
-        img = Image.open(baju["Gambar]")
+        image = Image.open(baju["Gambar]")
         st.image(img, use_column_width=True)
         
     with col2:
