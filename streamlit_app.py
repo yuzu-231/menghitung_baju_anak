@@ -22,4 +22,4 @@ for baju in baju_anak:
     st.image(baju["Gambar"], width=150)
     st.subheader(baju["Nama"])
     st.write(f"Harga: {baju['Harga']}")
-    st.write("---")
+    st.write("-")
