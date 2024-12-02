@@ -5,16 +5,16 @@ import streamlit as st
 
 # Data baju anak
 baju_anak = [
-    {"Nama": "Baju Anak Motif Bunga", "Motif": "Bunga", "Harga": 100000},
-    {"Nama": "Baju Anak Motif Garis", "Motif": "Garis", "Harga": 95000},
-    {"Nama": "Baju Anak Motif Polkadot", "Motif": "Polkadot", "Harga": 85000},
-    {"Nama": "Baju Anak Motif Kartun", "Motif": "Kartun", "Harga": 120000},
-    {"Nama": "Baju Anak Motif Hewan", "Motif": "Hewan", "Harga": 105000},
-    {"Nama": "Baju Anak Motif Abstrak", "Motif": "Abstrak", "Harga": 98000},
-    {"Nama": "Baju Anak Motif Batik", "Motif": "Batik", "Harga": 115000},
-    {"Nama": "Baju Anak Motif Army", "Motif": "Army", "Harga": 110000},
-    {"Nama": "Baju Anak Motif Stripe", "Motif": "Stripe", "Harga": 90000},
-    {"Nama": "Baju Anak Motif Geometris", "Motif": "Geometris", "Harga": 102000},
+    {"Nama": "Baju Anak Motif Bunga(1)", "Motif": "Bunga", "Harga": 100000},
+    {"Nama": "Baju Anak Motif Garis(2)", "Motif": "Garis", "Harga": 95000},
+    {"Nama": "Baju Anak Motif Polkadot(3)", "Motif": "Polkadot", "Harga": 85000},
+    {"Nama": "Baju Anak Motif Kartun(4)", "Motif": "Kartun", "Harga": 120000},
+    {"Nama": "Baju Anak Motif Hewan(5)", "Motif": "Hewan", "Harga": 105000},
+    {"Nama": "Baju Anak Motif Abstrak(6)", "Motif": "Abstrak", "Harga": 98000},
+    {"Nama": "Baju Anak Motif Batik(7)", "Motif": "Batik", "Harga": 115000},
+    {"Nama": "Baju Anak Motif Army(8)", "Motif": "Army", "Harga": 110000},
+    {"Nama": "Baju Anak Motif Stripe(9)", "Motif": "Stripe", "Harga": 90000},
+    {"Nama": "Baju Anak Motif Geometris(10)", "Motif": "Geometris", "Harga": 102000},
 ]
 
 # Judul Aplikasi
