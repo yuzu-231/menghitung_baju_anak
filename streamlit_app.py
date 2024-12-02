@@ -1,41 +1,35 @@
 import streamlit as st
+from PIL import Image
+import requests
+from io import BytesIO
 
-st.title("Menghitung Baju Anak")
-import streamlit as st
+# Judul aplikasi
+st.title("Katalog Baju Anak")
 
 # Data baju anak
 baju_anak = [
-    {"Nama": "Baju Anak Motif Bunga(1)", "Motif": "Bunga", "Harga": 100000},
-    {"Nama": "Baju Anak Motif Garis(2)", "Motif": "Garis", "Harga": 95000},
-    {"Nama": "Baju Anak Motif Polkadot(3)", "Motif": "Polkadot", "Harga": 85000},
-    {"Nama": "Baju Anak Motif Kartun(4)", "Motif": "Kartun", "Harga": 120000},
-    {"Nama": "Baju Anak Motif Hewan(5)", "Motif": "Hewan", "Harga": 105000},
-    {"Nama": "Baju Anak Motif Abstrak(6)", "Motif": "Abstrak", "Harga": 98000},
-    {"Nama": "Baju Anak Motif Batik(7)", "Motif": "Batik", "Harga": 115000},
-    {"Nama": "Baju Anak Motif Army(8)", "Motif": "Army", "Harga": 110000},
-    {"Nama": "Baju Anak Motif Stripe(9)", "Motif": "Stripe", "Harga": 90000},
-    {"Nama": "Baju Anak Motif Geometris(10)", "Motif": "Geometris", "Harga": 102000},
+    {"Nama": "Baju Anak Motif Dinosaurus", "Harga": "Rp 100.000", "Gambar": "https://via.placeholder.com/300x300?text=Dinosaurus"},
+    {"Nama": "Baju Anak Motif Bunga", "Harga": "Rp 95.000", "Gambar": "https://via.placeholder.com/300x300?text=Bunga"},
+    {"Nama": "Baju Anak Motif Mobil", "Harga": "Rp 105.000", "Gambar": "https://via.placeholder.com/300x300?text=Mobil"},
+    {"Nama": "Baju Anak Motif Hewan", "Harga": "Rp 110.000", "Gambar": "https://via.placeholder.com/300x300?text=Hewan"},
+    {"Nama": "Baju Anak Motif Buah", "Harga": "Rp 98.000", "Gambar": "https://via.placeholder.com/300x300?text=Buah"},
+    {"Nama": "Baju Anak Motif Kartun", "Harga": "Rp 120.000", "Gambar": "https://via.placeholder.com/300x300?text=Kartun"},
+    {"Nama": "Baju Anak Motif Polkadot", "Harga": "Rp 90.000", "Gambar": "https://via.placeholder.com/300x300?text=Polkadot"},
+    {"Nama": "Baju Anak Motif Pelangi", "Harga": "Rp 115.000", "Gambar": "https://via.placeholder.com/300x300?text=Pelangi"},
+    {"Nama": "Baju Anak Motif Bintang", "Harga": "Rp 100.000", "Gambar": "https://via.placeholder.com/300x300?text=Bintang"},
+    {"Nama": "Baju Anak Motif Geometri", "Harga": "Rp 92.000", "Gambar": "https://via.placeholder.com/300x300?text=Geometri"},
 ]
 
-# Judul Aplikasi
-st.title("Daftar Baju Anak")
+# Menampilkan katalog dengan grid
+cols = st.columns(2)
 
-# Tampilkan daftar baju
-st.subheader("Berikut adalah daftar baju anak dengan motif dan harga berbeda:")
-for baju in baju_anak:
-    st.write(f"*Nama*: {baju['Nama']}")
-    st.write(f"*Motif*: {baju['Motif']}")
-    st.write(f"*Harga*: Rp{baju['Harga']:,}")
-    st.write("---")
- 
-baju = st.number_input("masukan baju anak yg ingin dibeli :" ,0)
-jb = st.number_input("masukan jumlah baju :",0)
-
-if st.button("Hitung Jumlah", type="primary"):
-  loading = st.progress(0)
-  for i in range(100):
-    time.sleep(0.01)
-    loading.progress(i+1)
-      
-# Footer
-st.write("Terima kasih telah mengunjungi aplikasi kami!")
+for i, baju in enumerate(baju_anak):
+    col = cols[i % 2]
+    response = requests.get(baju["Gambar"])
+    img = Image.open(BytesIO(response.content))
+    
+    with col:
+        st.image(img, caption=baju["Nama"], use_column_width=True)
+        st.write(f"*Harga:* {baju['Harga']}")
+        st.button("Beli Sekarang", key=baju["Nama"])
+        st.markdown("---")
