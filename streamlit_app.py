@@ -4,7 +4,7 @@ import requests
 from io import BytesIO
 
 # Judul aplikasi
-st.title("Katalog Baju Anak dengan Perhitungan Total")
+st.title("Katalog Toko Baju Andalan")
 
 # Data baju anak (kombinasi URL dan gambar lokal)
 baju_anak = [
