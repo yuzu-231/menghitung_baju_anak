@@ -8,7 +8,7 @@ st.title("Katalog Toko Baju Andalan")
 
 # Data baju anak (kombinasi URL dan gambar lokal)
 baju_anak = [
-    {"Nama": "Baju Anak Motif Dinosaurus", "Harga": 100000, "Gambar": "image.open/Dino.jpg"},
+    {"Nama": "Baju Anak Motif Dinosaurus", "Harga": 100000, "Gambar": "images/Dino.jpg"},
     {"Nama": "Baju Anak Motif Bunga", "Harga": 95000, "Gambar": "images/Bunga.jpg"},
     {"Nama": "Baju Anak Motif Mobil", "Harga": 105000, "Gambar": "images/Mobil.jpg"},  
     {"Nama": "Baju Anak Motif Hewan", "Harga": 110000, "Gambar": "images/Hewan.jpg"}, 
@@ -35,7 +35,7 @@ for baju in baju_anak:
                 img = Image.open(BytesIO(response.content))
             else:
                 # Jika gambar lokal
-                img = Image.open(baju["Dino.jpg"])
+                img = Image.open(baju["Gambar"])
                 
             st.image(img, use_column_width=True)
         except Exception as e:
