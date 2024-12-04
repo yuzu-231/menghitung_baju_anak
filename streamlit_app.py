@@ -35,7 +35,7 @@ for baju in baju_anak:
                 img = Image.open(BytesIO(response.content))
             else:
                 # Jika gambar lokal
-                img = Image.open(baju["Gambar"])
+                img = Image.open(baju["Dino.jpg"])
                 
             st.image(img, use_column_width=True)
         except Exception as e:
