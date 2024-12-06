@@ -1,56 +1,78 @@
 import streamlit as st
-from PIL import Image
-import requests
-from io import BytesIO
+import pandas as pd
 
-# Judul aplikasi
-st.title("Katalog Toko Baju Andalan")
+# Data penjualan baju
+data_baju = {
+    "Nama Baju": ["Baju Motif Dinosaurus", "Baju Motif Bunga", "Baju Motif Polkadot", "Baju Motif Hewan", "Baju Motif Buah"],
+    "Harga": [100000, 95000, 90000, 110000, 90000],
+    "Stok": [10, 20, 30, 40, 50],
+    "Deskripsi": ["Baju motif Dinosaurus untuk anak anak usia 2-6 tahun", "Baju mottif Bunga cocok untuk anak anak yang menyukai desain cantik dan elegant", "Baju motif Polkadot cocok untuk sehari hari atau acara khusus untuk umur 1-10 tahun", "Baju motif Hewan dapat meningkatkan kreativitas dan imanjinasi anak anak dengan desain yang unik ", "Baju motif Buah dengan desain buah yang beragam serta warna warna cerah dan menarik"]
+}
 
-# Data baju anak (kombinasi URL dan gambar lokal)
-baju_anak = [
-    {"Nama": "Baju Anak Motif Dinosaurus", "Harga": 100000, "Gambar": "images/Dino.jpg"},
-    {"Nama": "Baju Anak Motif Bunga", "Harga": 95000, "Gambar": "images/Bunga.jpg"},
-    {"Nama": "Baju Anak Motif Mobil", "Harga": 105000, "Gambar": "images/Mobil.jpg"},  
-    {"Nama": "Baju Anak Motif Hewan", "Harga": 110000, "Gambar": "images/Hewan.jpg"}, 
-    {"Nama": "Baju Anak Motif Buah", "Harga": 98000, "Gambar": "images/Buah.jpg"},
-    {"Nama": "Baju Anak Motif Kartun", "Harga": 120000, "Gambar": "images/Kartun.jpg"},
-    {"Nama": "Baju Anak Motif Polkadot", "Harga": 90000, "Gambar": "images/Polkadot.jpg"}, 
-    {"Nama": "Baju Anak Motif Pelangi", "Harga": 115000, "Gambar": "images/Pelangi.jpg"},
-    {"Nama": "Baju Anak Motif Bintang", "Harga": 100000, "Gambar": "images/Bintang.jpg"},
-    {"Nama": "Baju Anak Motif Luar Angkasa", "Harga": 92000, "Gambar": "images/Luar angkasa.jpg"},
-]
+# Buat DataFrame dari data penjualan baju
+df_baju = pd.DataFrame(data_baju)
 
-# Inisialisasi total harga
-total_harga = 0
+# Buat aplikasi Streamlit
+st.title("TOKO BAJU ANDALAN")
+st.write("Selamat datang di toko baju Andalan kami!")
 
-# Menampilkan katalog dan pilihan jumlah
-for baju in baju_anak:
-    col1, col2 = st.columns([1, 3])
-    
-    with col1:
-        try:
-            # Coba ambil gambar dari URL
-            if baju["Gambar"].startswith("http"):
-                response = requests.get(baju["Gambar"])
-                img = Image.open(BytesIO(response.content))
-            else:
-                # Jika gambar lokal
-                img = Image.open(baju["Gambar"])
-                
-            st.image(img, use_column_width=True)
-        except Exception as e:
-            st.error(f"Gagal memuat gambar untuk {baju['Nama']}")
-        
-    with col2:
-        st.subheader(baju["Nama"])
-        st.write(f"*Harga:* Rp {baju['Harga']:,}")
-        jumlah = st.number_input(f"Jumlah untuk {baju['Nama']}", min_value=0, max_value=10, step=1, key=baju["Nama"])
-        total_harga += jumlah * baju["Harga"]
+# Tampilkan data penjualan baju
+st.write("Data Penjualan Baju:")
+st.write(df_baju)
 
-# Menampilkan total harga
-st.markdown("## Total Harga")
-st.write(f"*Rp {total_harga:,}*")
+# Buat tab untuk menampilkan detail baju
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["Baju Motif Dinosaurus", "Baju Motif Bunga", "Baju Motif Polkadot", "Baju Motif Hewan", "Baju Motif Buah"])
 
-# Tombol beli
-if st.button("Beli Sekarang"):
-    st.success("Terima kasih atas pembelian Anda!")
+# Tampilkan detail baju motoif Dinosaurus
+with tab1:
+    st.write("Detail Baju motif Dinosaurus:")
+    st.write(f"Nama Baju: {df_baju['Nama Baju'][0]}")
+    st.write(f"Harga: {df_baju['Harga'][0]}")
+    st.write(f"Stok: {df_baju['Stok'][0]}")
+    st.write(f"Deskripsi: {df_baju['Deskripsi'][0]}")
+
+# Tampilkan detail baju motif Bunga
+with tab2:
+    st.write("Detail Baju motif Bunga:")
+    st.write(f"Nama Baju: {df_baju['Nama Baju'][1]}")
+    st.write(f"Harga: {df_baju['Harga'][1]}")
+    st.write(f"Stok: {df_baju['Stok'][1]}")
+    st.write(f"Deskripsi: {df_baju['Deskripsi'][1]}")
+
+# Tampilkan detail baju motif Polkadot
+with tab3:
+    st.write("Detail Baju motif Polkadot:")
+    st.write(f"Nama Baju: {df_baju['Nama Baju'][2]}")
+    st.write(f"Harga: {df_baju['Harga'][2]}")
+    st.write(f"Stok: {df_baju['Stok'][2]}")
+    st.write(f"Deskripsi: {df_baju['Deskripsi'][2]}")
+
+# Tampilkan detail baju motif Hewan
+with tab4:
+    st.write("Detail Baju motif Hewan:")
+    st.write(f"Nama Baju: {df_baju['Nama Baju'][3]}")
+    st.write(f"Harga: {df_baju['Harga'][3]}")
+    st.write(f"Stok: {df_baju['Stok'][3]}")
+    st.write(f"Deskripsi: {df_baju['Deskripsi'][3]}")
+
+# Tampilkan detail baju motif Buah 
+with tab5:
+    st.write("Detail Baju motif Buah:")
+    st.write(f"Nama Baju: {df_baju['Nama Baju'][4]}")
+    st.write(f"Harga: {df_baju['Harga'][4]}")
+    st.write(f"Stok: {df_baju['Stok'][4]}")
+    st.write(f"Deskripsi: {df_baju['Deskripsi'][4]}")
+
+# Buat form untuk memesan baju
+st.write("Pesan Baju:")
+with st.form("pesan_baju"):
+    nama_baju = st.selectbox("Pilih Nama Baju", df_baju["Nama Baju"])
+    jumlah = st.number_input("Jumlah", min_value=1, max_value=100)
+    submit = st.form_submit_button("Pesan")
+
+# Proses pesanan baju
+if submit:
+    st.write("Pesanan Anda:")
+    st.write(f"Nama Baju: {nama_baju}")
+    st.write(f"Jumlah: {jumlah}")
+    st.write("Terima kasih telah memesan baju di kami!")
