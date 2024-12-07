@@ -22,8 +22,7 @@ baju_anak = [
 
 # Inisialisasi total harga
 total_harga = 0
-    
-    with col1:
+     with col1:
         try:
             # Coba ambil gambar dari URL
             if baju["Gambar"].startswith("http"):
