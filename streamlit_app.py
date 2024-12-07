@@ -22,18 +22,6 @@ baju_anak = [
 
 # Inisialisasi total harga
 total_harga = 0
-
-import streamlit as st
-from pathlib import Path
-
-IMG = Path.cwd() / "img"
-
-col1, col2 = st.columns([1, 4])
-with col1:
-    st.image(str(IMG / "Dino.png"), use_column_width=True)
-# Menampilkan katalog dan pilihan jumlah
-for baju in baju_anak:
-    col1, col2 = st.columns([1, 3])
     
     with col1:
         try:
