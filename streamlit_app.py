@@ -69,8 +69,6 @@ elif st.session_state.page == "Keranjang":
 
         # Tombol untuk melanjutkan ke konfirmasi
         if st.button("Lanjutkan ke Pembayaran"):
-           st.button("Kembali Ke Pesanan")
-            ganti_halaman("Katalog")
             ganti_halaman("Pembayaran")
     else:
         st.info("Keranjang Anda kosong.")
