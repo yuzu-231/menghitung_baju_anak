@@ -29,7 +29,11 @@ baju_anak = [
     {"Nama": "Baju Anak Motif Mobil", "Harga": 105000, "Gambar": "images/Mobil.jpg"},
     {"Nama": "Baju Anak Motif Hewan", "Harga": 110000, "Gambar": "images/Hewan.jpg"},
     {"Nama": "Baju Anak Motif Buah", "Harga": 98000, "Gambar": "images/Buah.jpg"},
-    {"Nama": "Baju Anak Motif Kartun", "Harga": 120000, "Gambar": "images/Kartun.jpg"},
+    {"Nama": "Baju Anak Motif Pelangi", "Harga": 85000, "Gambar": "images/Kartun.jpg"}
+    {"Nama": "Baju Anak Motif Bintang", "Harga": 120000, "Gambar": "images/Kartun.jpg"},
+    {"Nama": "Baju Anak Motif Kartun", "Harga": 90000, "Gambar": "images/Kartun.jpg"}
+    {"Nama": "Baju Anak Motif Polkadot", "Harga": 93000, "Gambar": "images/Kartun.jpg"}
+    {"Nama": "Baju Anak Motif Luar Angkasa", "Harga": 80000, "Gambar": "images/Kartun.jpg"}
 ]
 
 # Fungsi untuk menambahkan produk ke keranjang
