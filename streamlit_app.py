@@ -12,24 +12,36 @@ if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 if "diskon" not in st.session_state:
     st.session_state.diskon = 0
+if "stok" not in st.session_state:
+    st.session_state.stok = {  # Inisialisasi stok produk
+        "Baju Anak Motif Dinosaurus": 10,
+        "Baju Anak Motif Bunga": 15,
+        "Baju Anak Motif Mobil": 8,
+        "Baju Anak Motif Hewan": 5,
+        "Baju Anak Motif Buah": 12,
+        "Baju Anak Motif Kartun": 7,
+    }
 
-# Data produk baju anak dengan stok
+# Data produk baju anak
 baju_anak = [
-    {"Nama": "Baju Anak Motif Dinosaurus", "Harga": 100000, "Gambar": "images/Dino.jpg", "Stok": 10},
-    {"Nama": "Baju Anak Motif Bunga", "Harga": 95000, "Gambar": "images/Bunga.jpg", "Stok": 15},
-    {"Nama": "Baju Anak Motif Mobil", "Harga": 105000, "Gambar": "images/Mobil.jpg", "Stok": 8},
-    {"Nama": "Baju Anak Motif Hewan", "Harga": 110000, "Gambar": "images/Hewan.jpg", "Stok": 5},
-    {"Nama": "Baju Anak Motif Buah", "Harga": 98000, "Gambar": "images/Buah.jpg", "Stok": 12},
-    {"Nama": "Baju Anak Motif Kartun", "Harga": 120000, "Gambar": "images/Kartun.jpg", "Stok": 7},
+    {"Nama": "Baju Anak Motif Dinosaurus", "Harga": 100000, "Gambar": "images/Dino.jpg"},
+    {"Nama": "Baju Anak Motif Bunga", "Harga": 95000, "Gambar": "images/Bunga.jpg"},
+    {"Nama": "Baju Anak Motif Mobil", "Harga": 105000, "Gambar": "images/Mobil.jpg"},
+    {"Nama": "Baju Anak Motif Hewan", "Harga": 110000, "Gambar": "images/Hewan.jpg"},
+    {"Nama": "Baju Anak Motif Buah", "Harga": 98000, "Gambar": "images/Buah.jpg"},
+    {"Nama": "Baju Anak Motif Kartun", "Harga": 120000, "Gambar": "images/Kartun.jpg"},
 ]
 
 # Fungsi untuk menambahkan produk ke keranjang
 def tambah_ke_keranjang(nama, harga, jumlah, stok):
     if jumlah > 0 and jumlah <= stok:
         st.session_state.keranjang.append({"Nama": nama, "Harga": harga, "Jumlah": jumlah, "Subtotal": jumlah * harga})
+        st.session_state.stok[nama] -= jumlah  # Kurangi stok sementara
         st.success(f"{nama} berhasil ditambahkan ke keranjang!")
     elif jumlah > stok:
         st.error(f"Jumlah melebihi stok tersedia ({stok}).")
+    else:
+        st.error("Jumlah harus lebih dari 0.")
 
 # Fungsi untuk mengganti halaman
 def ganti_halaman(page):
@@ -54,6 +66,8 @@ elif st.session_state.page == "Katalog" and st.session_state.logged_in:
     
     for baju in baju_anak:
         col1, col2, col3 = st.columns([1, 3, 2])
+        stok = st.session_state.stok[baju["Nama"]]  # Dapatkan stok terkini
+        
         with col1:
             try:
                 img = Image.open(baju["Gambar"])
@@ -63,11 +77,14 @@ elif st.session_state.page == "Katalog" and st.session_state.logged_in:
         with col2:
             st.subheader(baju["Nama"])
             st.write(f"*Harga:* Rp {baju['Harga']:,}")
-            st.write(f"*Stok:* {baju['Stok']}")
+            st.write(f"*Stok:* {stok}")
         with col3:
-            jumlah = st.number_input(f"Jumlah untuk {baju['Nama']}", min_value=0, max_value=baju["Stok"], step=1, key=baju["Nama"])
-            if st.button(f"Tambah {baju['Nama']}", key=f"btn-{baju['Nama']}"):
-                tambah_ke_keranjang(baju["Nama"], baju["Harga"], jumlah, baju["Stok"])
+            if stok > 0:
+                jumlah = st.number_input(f"Jumlah untuk {baju['Nama']}", min_value=0, max_value=stok, step=1, key=baju["Nama"])
+                if st.button(f"Tambah {baju['Nama']}", key=f"btn-{baju['Nama']}"):
+                    tambah_ke_keranjang(baju["Nama"], baju["Harga"], jumlah, stok)
+            else:
+                st.error("Stok habis!")
 
     if st.button("Lihat Keranjang"):
         ganti_halaman("Keranjang")
@@ -117,7 +134,7 @@ elif st.session_state.page == "Pembayaran" and st.session_state.logged_in:
     st.write(f"*Rp {st.session_state.total_harga - st.session_state.diskon:,}*")
     
     st.markdown("### Estimasi Pengiriman")
-    st.write("Pesanan Anda akan dikirim dalam waktu 2-3 hari")
+    st.write("Pesanan Anda akan dikirim dalam waktu 2-3 hari kerja.")
     
     if st.button("Konfirmasi Pembayaran"):
         st.success("Pesanan Anda berhasil diproses! Terima kasih.")
