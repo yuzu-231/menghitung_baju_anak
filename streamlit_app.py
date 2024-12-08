@@ -5,36 +5,53 @@ from PIL import Image
 if "keranjang" not in st.session_state:
     st.session_state.keranjang = []
 if "page" not in st.session_state:
-    st.session_state.page = "Katalog"  # Halaman default
+    st.session_state.page = "Login"  # Halaman default
 if "total_harga" not in st.session_state:
     st.session_state.total_harga = 0
-if "riwayat_pesanan" not in st.session_state:
-    st.session_state.riwayat_pesanan = []
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+if "diskon" not in st.session_state:
+    st.session_state.diskon = 0
+
+# Data produk baju anak dengan stok
+baju_anak = [
+    {"Nama": "Baju Anak Motif Dinosaurus", "Harga": 100000, "Gambar": "images/Dino.jpg", "Stok": 10},
+    {"Nama": "Baju Anak Motif Bunga", "Harga": 95000, "Gambar": "images/Bunga.jpg", "Stok": 15},
+    {"Nama": "Baju Anak Motif Mobil", "Harga": 105000, "Gambar": "images/Mobil.jpg", "Stok": 8},
+    {"Nama": "Baju Anak Motif Hewan", "Harga": 110000, "Gambar": "images/Hewan.jpg", "Stok": 5},
+    {"Nama": "Baju Anak Motif Buah", "Harga": 98000, "Gambar": "images/Buah.jpg", "Stok": 12},
+    {"Nama": "Baju Anak Motif Kartun", "Harga": 120000, "Gambar": "images/Kartun.jpg", "Stok": 7},
+]
 
 # Fungsi untuk menambahkan produk ke keranjang
-def tambah_ke_keranjang(nama, harga, jumlah):
-    if jumlah > 0:
-        st.session_state.keranjang.append({"Nama": nama, "Harga": harga, "Jumlah": jumlah})
+def tambah_ke_keranjang(nama, harga, jumlah, stok):
+    if jumlah > 0 and jumlah <= stok:
+        st.session_state.keranjang.append({"Nama": nama, "Harga": harga, "Jumlah": jumlah, "Subtotal": jumlah * harga})
         st.success(f"{nama} berhasil ditambahkan ke keranjang!")
+    elif jumlah > stok:
+        st.error(f"Jumlah melebihi stok tersedia ({stok}).")
 
 # Fungsi untuk mengganti halaman
 def ganti_halaman(page):
     st.session_state.page = page
 
-# Data produk baju anak
-baju_anak = [
-    {"Nama": "Baju Anak Motif Dinosaurus", "Harga": 100000, "Gambar": "images/Dino.jpg"},
-    {"Nama": "Baju Anak Motif Bunga", "Harga": 95000, "Gambar": "images/Bunga.jpg"},
-    {"Nama": "Baju Anak Motif Mobil", "Harga": 105000, "Gambar": "images/Mobil.jpg"},
-    {"Nama": "Baju Anak Motif Hewan", "Harga": 110000, "Gambar": "images/Hewan.jpg"},
-    {"Nama": "Baju Anak Motif Buah", "Harga": 98000, "Gambar": "images/Buah.jpg"},
-    {"Nama": "Baju Anak Motif Kartun", "Harga": 120000, "Gambar": "images/Kartun.jpg"},
-]
+# Halaman Login
+if st.session_state.page == "Login":
+    st.title("Login Pengguna")
+    username = st.text_input("Username:")
+    password = st.text_input("Password:", type="password")
+    
+    if st.button("Login"):
+        if username == "admin" and password == "1234":  # Contoh login sederhana
+            st.session_state.logged_in = True
+            ganti_halaman("Katalog")
+        else:
+            st.error("Username atau password salah.")
 
 # Halaman Katalog
-if st.session_state.page == "Katalog":
+elif st.session_state.page == "Katalog" and st.session_state.logged_in:
     st.title("Katalog Toko Baju Anak")
-
+    
     for baju in baju_anak:
         col1, col2, col3 = st.columns([1, 3, 2])
         with col1:
@@ -46,44 +63,42 @@ if st.session_state.page == "Katalog":
         with col2:
             st.subheader(baju["Nama"])
             st.write(f"*Harga:* Rp {baju['Harga']:,}")
+            st.write(f"*Stok:* {baju['Stok']}")
         with col3:
-            jumlah = st.number_input(f"Jumlah untuk {baju['Nama']}", min_value=0, max_value=10, step=1, key=baju["Nama"])
+            jumlah = st.number_input(f"Jumlah untuk {baju['Nama']}", min_value=0, max_value=baju["Stok"], step=1, key=baju["Nama"])
             if st.button(f"Tambah {baju['Nama']}", key=f"btn-{baju['Nama']}"):
-                tambah_ke_keranjang(baju["Nama"], baju["Harga"], jumlah)
+                tambah_ke_keranjang(baju["Nama"], baju["Harga"], jumlah, baju["Stok"])
 
-    # Tombol menuju halaman keranjang
     if st.button("Lihat Keranjang"):
         ganti_halaman("Keranjang")
 
 # Halaman Keranjang
-elif st.session_state.page == "Keranjang":
+elif st.session_state.page == "Keranjang" and st.session_state.logged_in:
     st.title("Keranjang Belanja Anda")
-
+    
     if st.session_state.keranjang:
-        total_harga = 0
-        for idx, item in enumerate(st.session_state.keranjang):
-            st.write(f"{idx+1}. *{item['Nama']}* - {item['Jumlah']} x Rp {item['Harga']:,} = Rp {item['Jumlah'] * item['Harga']:,}")
-            total_harga += item["Jumlah"] * item["Harga"]
-
+        total_harga = sum(item["Subtotal"] for item in st.session_state.keranjang)
         st.session_state.total_harga = total_harga
-
-        # Input kode diskon
-        st.markdown("### Kode Diskon")
-        kode_diskon = st.text_input("Masukkan kode diskon jika ada (contoh: DISKON10)")
-        diskon = 0
-        if kode_diskon == "DISKON10":
-            diskon = 0.1 * total_harga
-            st.success(f"Diskon 10% berhasil diterapkan! Anda hemat Rp {diskon:,}.")
-        elif kode_diskon:
-            st.error("Kode diskon tidak valid.")
-
-        total_harga -= diskon
-        st.markdown("### Total Harga Setelah Diskon")
+        
+        for idx, item in enumerate(st.session_state.keranjang):
+            st.write(f"{idx+1}. *{item['Nama']}* - {item['Jumlah']} x Rp {item['Harga']:,} = Rp {item['Subtotal']:,}")
+        
+        st.markdown("### Total Harga Sebelum Diskon")
         st.write(f"*Rp {total_harga:,}*")
-
-        # Tombol untuk melanjutkan ke pembayaran
+        
+        voucher = st.text_input("Masukkan kode voucher (opsional):")
+        if st.button("Gunakan Voucher"):
+            if voucher == "DISKON10":
+                st.session_state.diskon = 0.1 * total_harga
+                st.success("Voucher berhasil digunakan! Diskon 10% diterapkan.")
+            else:
+                st.warning("Kode voucher tidak valid.")
+        
+        total_setelah_diskon = total_harga - st.session_state.diskon
+        st.markdown("### Total Harga Setelah Diskon")
+        st.write(f"*Rp {total_setelah_diskon:,}*")
+        
         if st.button("Lanjutkan ke Pembayaran"):
-            st.session_state.total_harga = total_harga
             ganti_halaman("Pembayaran")
     else:
         st.info("Keranjang Anda kosong.")
@@ -91,48 +106,24 @@ elif st.session_state.page == "Keranjang":
             ganti_halaman("Katalog")
 
 # Halaman Pembayaran
-elif st.session_state.page == "Pembayaran":
+elif st.session_state.page == "Pembayaran" and st.session_state.logged_in:
     st.title("Konfirmasi Pembayaran")
-
+    
     st.markdown("### Rincian Pesanan")
     for idx, item in enumerate(st.session_state.keranjang):
-        st.write(f"{idx+1}. *{item['Nama']}* - {item['Jumlah']} x Rp {item['Harga']:,} = Rp {item['Jumlah'] * item['Harga']:,}")
-
+        st.write(f"{idx+1}. *{item['Nama']}* - {item['Jumlah']} x Rp {item['Harga']:,} = Rp {item['Subtotal']:,}")
+    
     st.markdown("### Total Harga")
-    st.write(f"*Rp {st.session_state.total_harga:,}*")
-
-    # Opsi metode pembayaran
-    st.markdown("### Pilih Metode Pembayaran")
-    metode_pembayaran = st.radio("Metode Pembayaran", ["Transfer Bank", "E-Wallet", "COD"])
-
-    # Tombol konfirmasi
+    st.write(f"*Rp {st.session_state.total_harga - st.session_state.diskon:,}*")
+    
+    st.markdown("### Estimasi Pengiriman")
+    st.write("Pesanan Anda akan dikirim dalam waktu 2-3 hari kerja.")
+    
     if st.button("Konfirmasi Pembayaran"):
         st.success("Pesanan Anda berhasil diproses! Terima kasih.")
-        st.session_state.riwayat_pesanan.append({
-            "Keranjang": st.session_state.keranjang.copy(),
-            "Total": st.session_state.total_harga,
-            "Metode Pembayaran": metode_pembayaran,
-        })
-        st.session_state.keranjang = []  # Reset keranjang setelah checkout
+        st.session_state.keranjang = []
         st.session_state.total_harga = 0
-        ganti_halaman("Riwayat")
+        st.session_state.diskon = 0
+        ganti_halaman("Katalog")
     elif st.button("Kembali ke Keranjang"):
         ganti_halaman("Keranjang")
-
-# Halaman Riwayat Pesanan
-elif st.session_state.page == "Riwayat":
-    st.title("Riwayat Pesanan")
-
-    if st.session_state.riwayat_pesanan:
-        for idx, pesanan in enumerate(st.session_state.riwayat_pesanan):
-            st.markdown(f"### Pesanan {idx+1}")
-            for item in pesanan["Keranjang"]:
-                st.write(f"- *{item['Nama']}* - {item['Jumlah']} x Rp {item['Harga']:,}")
-            st.write(f"*Total: Rp {pesanan['Total']:,}*")
-            st.write(f"*Metode Pembayaran:* {pesanan['Metode Pembayaran']}")
-            st.markdown("---")
-    else:
-        st.info("Belum ada riwayat pesanan.")
-    
-    if st.button("Kembali ke Katalog"):
-        ganti_halaman("Katalog")
