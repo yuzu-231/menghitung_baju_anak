@@ -31,7 +31,7 @@ baju_anak = [
 
 # Halaman Katalog
 if st.session_state.page == "Katalog":
-    st.title("Katalog Toko Baju Anak")
+    st.title("Katalog Toko Baju Andalan")
 
     for baju in baju_anak:
         col1, col2, col3 = st.columns([1, 3, 2])
@@ -93,4 +93,4 @@ elif st.session_state.page == "Pembayaran":
         st.session_state.total_harga = 0
         ganti_halaman("Katalog")
     elif st.button("Kembali ke Pesanan"):
-        ganti_halaman("Pesanan")
+        ganti_halaman("Page")
