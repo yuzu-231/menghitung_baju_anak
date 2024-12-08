@@ -12,8 +12,8 @@ def baca_stok():
         with open(STOK_FILE, "r") as f:
             return json.load(f)
     else:
-        # Jika file tidak ada, gunakan stok awal
-        return {
+        # Jika file tidak ada, gunakan stok awal dan simpan ke file
+        stok_awal = {
             "Baju Anak Motif Dinosaurus": 10,
             "Baju Anak Motif Bunga": 15,
             "Baju Anak Motif Mobil": 8,
@@ -30,6 +30,8 @@ def baca_stok():
             "Baju Anak Motif Geometri": 10,
             "Baju Anak Motif Pahlawan Nasional": 6,
         }
+        simpan_stok(stok_awal)
+        return stok_awal
 
 # Fungsi untuk menyimpan stok ke file
 def simpan_stok(stok):
@@ -45,8 +47,6 @@ if "total_harga" not in st.session_state:
     st.session_state.total_harga = 0
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
-if "diskon" not in st.session_state:
-    st.session_state.diskon = 0
 if "stok" not in st.session_state:
     st.session_state.stok = baca_stok()  # Baca stok dari file
 
