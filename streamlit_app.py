@@ -20,6 +20,15 @@ if "stok" not in st.session_state:
         "Baju Anak Motif Hewan": 5,
         "Baju Anak Motif Buah": 12,
         "Baju Anak Motif Kartun": 7,
+        "Baju Anak Motif Polkadot": 20,
+        "Baju Anak Motif Pelangi": 18,
+        "Baju Anak Motif Bintang": 12,
+        "Baju Anak Motif Luar Angkasa": 10,
+        "Baju Anak Motif Panda": 5,
+        "Baju Anak Motif Superhero": 15,
+        "Baju Anak Motif Hutan": 8,
+        "Baju Anak Motif Geometri": 10,
+        "Baju Anak Motif Pahlawan Nasional": 6,
     }
 
 # Data produk baju anak
@@ -29,11 +38,16 @@ baju_anak = [
     {"Nama": "Baju Anak Motif Mobil", "Harga": 105000, "Gambar": "images/Mobil.jpg"},
     {"Nama": "Baju Anak Motif Hewan", "Harga": 110000, "Gambar": "images/Hewan.jpg"},
     {"Nama": "Baju Anak Motif Buah", "Harga": 98000, "Gambar": "images/Buah.jpg"},
-    {"Nama": "Baju Anak Motif Pelangi", "Harga": 85000, "Gambar": "images/Kartun.jpg"},
-    {"Nama": "Baju Anak Motif Bintang", "Harga": 120000, "Gambar": "images/Kartun.jpg"},
-    {"Nama": "Baju Anak Motif Kartun", "Harga": 90000, "Gambar": "images/Kartun.jpg"},
-    {"Nama": "Baju Anak Motif Polkadot", "Harga": 93000, "Gambar": "images/Kartun.jpg"},
-    {"Nama": "Baju Anak Motif Luar Angkasa", "Harga": 80000, "Gambar": "images/Kartun.jpg"},
+    {"Nama": "Baju Anak Motif Kartun", "Harga": 120000, "Gambar": "images/Kartun.jpg"},
+    {"Nama": "Baju Anak Motif Polkadot", "Harga": 90000, "Gambar": "images/Polkadot.jpg"},
+    {"Nama": "Baju Anak Motif Pelangi", "Harga": 115000, "Gambar": "images/Pelangi.jpg"},
+    {"Nama": "Baju Anak Motif Bintang", "Harga": 100000, "Gambar": "images/Bintang.jpg"},
+    {"Nama": "Baju Anak Motif Luar Angkasa", "Harga": 92000, "Gambar": "images/LuarAngkasa.jpg"},
+    {"Nama": "Baju Anak Motif Panda", "Harga": 110000, "Gambar": "images/Panda.jpg"},
+    {"Nama": "Baju Anak Motif Superhero", "Harga": 130000, "Gambar": "images/Superhero.jpg"},
+    {"Nama": "Baju Anak Motif Hutan", "Harga": 105000, "Gambar": "images/Hutan.jpg"},
+    {"Nama": "Baju Anak Motif Geometri", "Harga": 95000, "Gambar": "images/Geometri.jpg"},
+    {"Nama": "Baju Anak Motif Pahlawan Nasional", "Harga": 125000, "Gambar": "images/Pahlawan.jpg"},
 ]
 
 # Fungsi untuk menambahkan produk ke keranjang
