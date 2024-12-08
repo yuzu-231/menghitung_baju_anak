@@ -1,12 +1,13 @@
 import streamlit as st
 from PIL import Image
-import os
 
-# Inisialisasi session state
+# Inisialisasi session state untuk menyimpan data
 if "keranjang" not in st.session_state:
     st.session_state.keranjang = []
 if "page" not in st.session_state:
     st.session_state.page = "Katalog"  # Halaman default
+if "total_harga" not in st.session_state:
+    st.session_state.total_harga = 0
 
 # Fungsi untuk menambahkan produk ke keranjang
 def tambah_ke_keranjang(nama, harga, jumlah):
@@ -14,7 +15,7 @@ def tambah_ke_keranjang(nama, harga, jumlah):
         st.session_state.keranjang.append({"Nama": nama, "Harga": harga, "Jumlah": jumlah})
         st.success(f"{nama} berhasil ditambahkan ke keranjang!")
 
-# Fungsi untuk menavigasi antar halaman
+# Fungsi untuk mengganti halaman
 def ganti_halaman(page):
     st.session_state.page = page
 
@@ -26,17 +27,12 @@ baju_anak = [
     {"Nama": "Baju Anak Motif Hewan", "Harga": 110000, "Gambar": "images/Hewan.jpg"},
     {"Nama": "Baju Anak Motif Buah", "Harga": 98000, "Gambar": "images/Buah.jpg"},
     {"Nama": "Baju Anak Motif Kartun", "Harga": 120000, "Gambar": "images/Kartun.jpg"},
-    {"Nama": "Baju Anak Motif Polkadot", "Harga": 90000, "Gambar": "images/Polkadot.jpg"},
-    {"Nama": "Baju Anak Motif Pelangi", "Harga": 115000, "Gambar": "images/Pelangi.jpg"},
-    {"Nama": "Baju Anak Motif Bintang", "Harga": 100000, "Gambar": "images/Bintang.jpg"},
-    {"Nama": "Baju Anak Motif Luar Angkasa", "Harga": 92000, "Gambar": "images/Luar angkasa.jpg"},
 ]
 
 # Halaman Katalog
 if st.session_state.page == "Katalog":
-    st.title("Katalog Toko Baju Anak Andalan")
+    st.title("Katalog Toko Baju Anak")
 
-    st.markdown("## Pilih Produk")
     for baju in baju_anak:
         col1, col2, col3 = st.columns([1, 3, 2])
         with col1:
@@ -53,13 +49,13 @@ if st.session_state.page == "Katalog":
             if st.button(f"Tambah {baju['Nama']}", key=f"btn-{baju['Nama']}"):
                 tambah_ke_keranjang(baju["Nama"], baju["Harga"], jumlah)
 
-    # Tombol menuju halaman checkout
+    # Tombol menuju halaman keranjang
     if st.button("Lihat Keranjang"):
-        ganti_halaman("Checkout")
+        ganti_halaman("Keranjang")
 
-# Halaman Checkout
-elif st.session_state.page == "Checkout":
-    st.title("Checkout Pesanan Anda")
+# Halaman Keranjang
+elif st.session_state.page == "Keranjang":
+    st.title("Keranjang Belanja Anda")
 
     if st.session_state.keranjang:
         total_harga = 0
@@ -67,16 +63,34 @@ elif st.session_state.page == "Checkout":
             st.write(f"{idx+1}. *{item['Nama']}* - {item['Jumlah']} x Rp {item['Harga']:,} = Rp {item['Jumlah'] * item['Harga']:,}")
             total_harga += item["Jumlah"] * item["Harga"]
 
+        st.session_state.total_harga = total_harga
         st.markdown("### Total Harga")
         st.write(f"*Rp {total_harga:,}*")
 
-        # Tombol konfirmasi
-        if st.button("Konfirmasi Pesanan"):
-            st.button("Kembali Ke Pesanan")
-            st.success("Pesanan Anda telah berhasil diproses. Terima kasih!")
-            st.session_state.keranjang = []  # Reset keranjang setelah checkout
-            ganti_halaman("Katalog")  # Kembali ke halaman katalog
+        # Tombol untuk melanjutkan ke konfirmasi
+        if st.button("Lanjutkan ke Pembayaran"):
+            ganti_halaman("Pembayaran")
     else:
-        st.info("Keranjang belanja Anda kosong.")
+        st.info("Keranjang Anda kosong.")
         if st.button("Kembali ke Katalog"):
             ganti_halaman("Katalog")
+
+# Halaman Pembayaran
+elif st.session_state.page == "Pembayaran":
+    st.title("Konfirmasi Pembayaran")
+
+    st.markdown("### Rincian Pesanan")
+    for idx, item in enumerate(st.session_state.keranjang):
+        st.write(f"{idx+1}. *{item['Nama']}* - {item['Jumlah']} x Rp {item['Harga']:,} = Rp {item['Jumlah'] * item['Harga']:,}")
+
+    st.markdown("### Total Harga")
+    st.write(f"*Rp {st.session_state.total_harga:,}*")
+
+    # Tombol konfirmasi
+    if st.button("Konfirmasi Pembayaran"):
+        st.success("Pesanan Anda berhasil diproses! Terima kasih.")
+        st.session_state.keranjang = []  # Reset keranjang setelah checkout
+        st.session_state.total_harga = 0
+        ganti_halaman("Katalog")
+    elif st.button("Kembali ke Keranjang"):
+        ganti_halaman("Keranjang")
