@@ -72,6 +72,7 @@ elif st.session_state.page == "Checkout":
 
         # Tombol konfirmasi
         if st.button("Konfirmasi Pesanan"):
+            st.button("Kembali Ke Pesanan")
             st.success("Pesanan Anda telah berhasil diproses. Terima kasih!")
             st.session_state.keranjang = []  # Reset keranjang setelah checkout
             ganti_halaman("Katalog")  # Kembali ke halaman katalog
