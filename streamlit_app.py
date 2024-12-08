@@ -24,11 +24,6 @@ def baca_stok():
             "Baju Anak Motif Pelangi": 18,
             "Baju Anak Motif Bintang": 12,
             "Baju Anak Motif Luar Angkasa": 10,
-            "Baju Anak Motif Panda": 5,
-            "Baju Anak Motif Superhero": 15,
-            "Baju Anak Motif Hutan": 8,
-            "Baju Anak Motif Geometri": 10,
-            "Baju Anak Motif Pahlawan Nasional": 6,
         }
         simpan_stok(stok_awal)
         return stok_awal
@@ -62,11 +57,6 @@ baju_anak = [
     {"Nama": "Baju Anak Motif Pelangi", "Harga": 115000, "Gambar": "images/Pelangi.jpg"},
     {"Nama": "Baju Anak Motif Bintang", "Harga": 100000, "Gambar": "images/Bintang.jpg"},
     {"Nama": "Baju Anak Motif Luar Angkasa", "Harga": 92000, "Gambar": "images/LuarAngkasa.jpg"},
-    {"Nama": "Baju Anak Motif Panda", "Harga": 110000, "Gambar": "images/Panda.jpg"},
-    {"Nama": "Baju Anak Motif Superhero", "Harga": 130000, "Gambar": "images/Superhero.jpg"},
-    {"Nama": "Baju Anak Motif Hutan", "Harga": 105000, "Gambar": "images/Hutan.jpg"},
-    {"Nama": "Baju Anak Motif Geometri", "Harga": 95000, "Gambar": "images/Geometri.jpg"},
-    {"Nama": "Baju Anak Motif Pahlawan Nasional", "Harga": 125000, "Gambar": "images/Pahlawan.jpg"},
 ]
 
 # Fungsi untuk menambahkan produk ke keranjang
@@ -126,3 +116,24 @@ elif st.session_state.page == "Katalog" and st.session_state.logged_in:
 
     if st.button("Lihat Keranjang"):
         ganti_halaman("Keranjang")
+
+# Halaman Keranjang
+elif st.session_state.page == "Keranjang":
+    st.title("Keranjang Belanja Anda")
+    if st.session_state.keranjang:
+        for item in st.session_state.keranjang:
+            st.write(f"{item['Nama']} - Jumlah: {item['Jumlah']} - Subtotal: Rp {item['Subtotal']:,}")
+        st.write(f"*Total Harga: Rp {sum([item['Subtotal'] for item in st.session_state.keranjang]):,}*")
+        if st.button("Lanjutkan ke Pembayaran"):
+            ganti_halaman("Pembayaran")
+    else:
+        st.warning("Keranjang Anda kosong.")
+        if st.button("Kembali ke Katalog"):
+            ganti_halaman("Katalog")
+
+# Halaman Pembayaran
+elif st.session_state.page == "Pembayaran":
+    st.title("Konfirmasi Pembayaran")
+    st.success("Pembayaran berhasil! Terima kasih atas pembelian Anda.")
+    if st.button("Kembali ke Katalog"):
+        ganti_halaman("Katalog")
