@@ -1,5 +1,40 @@
 import streamlit as st
 from PIL import Image
+import json
+import os
+
+# Path file untuk menyimpan stok
+STOK_FILE = "stok.json"
+
+# Fungsi untuk membaca stok dari file
+def baca_stok():
+    if os.path.exists(STOK_FILE):
+        with open(STOK_FILE, "r") as f:
+            return json.load(f)
+    else:
+        # Jika file tidak ada, gunakan stok awal
+        return {
+            "Baju Anak Motif Dinosaurus": 10,
+            "Baju Anak Motif Bunga": 15,
+            "Baju Anak Motif Mobil": 8,
+            "Baju Anak Motif Hewan": 5,
+            "Baju Anak Motif Buah": 12,
+            "Baju Anak Motif Kartun": 7,
+            "Baju Anak Motif Polkadot": 20,
+            "Baju Anak Motif Pelangi": 18,
+            "Baju Anak Motif Bintang": 12,
+            "Baju Anak Motif Luar Angkasa": 10,
+            "Baju Anak Motif Panda": 5,
+            "Baju Anak Motif Superhero": 15,
+            "Baju Anak Motif Hutan": 8,
+            "Baju Anak Motif Geometri": 10,
+            "Baju Anak Motif Pahlawan Nasional": 6,
+        }
+
+# Fungsi untuk menyimpan stok ke file
+def simpan_stok(stok):
+    with open(STOK_FILE, "w") as f:
+        json.dump(stok, f)
 
 # Inisialisasi session state
 if "keranjang" not in st.session_state:
@@ -13,23 +48,7 @@ if "logged_in" not in st.session_state:
 if "diskon" not in st.session_state:
     st.session_state.diskon = 0
 if "stok" not in st.session_state:
-    st.session_state.stok = {  # Inisialisasi stok produk
-        "Baju Anak Motif Dinosaurus": 10,
-        "Baju Anak Motif Bunga": 15,
-        "Baju Anak Motif Mobil": 8,
-        "Baju Anak Motif Hewan": 5,
-        "Baju Anak Motif Buah": 12,
-        "Baju Anak Motif Kartun": 7,
-        "Baju Anak Motif Polkadot": 20,
-        "Baju Anak Motif Pelangi": 18,
-        "Baju Anak Motif Bintang": 12,
-        "Baju Anak Motif Luar Angkasa": 10,
-        "Baju Anak Motif Panda": 5,
-        "Baju Anak Motif Superhero": 15,
-        "Baju Anak Motif Hutan": 8,
-        "Baju Anak Motif Geometri": 10,
-        "Baju Anak Motif Pahlawan Nasional": 6,
-    }
+    st.session_state.stok = baca_stok()  # Baca stok dari file
 
 # Data produk baju anak
 baju_anak = [
@@ -54,7 +73,8 @@ baju_anak = [
 def tambah_ke_keranjang(nama, harga, jumlah, stok):
     if jumlah > 0 and jumlah <= stok:
         st.session_state.keranjang.append({"Nama": nama, "Harga": harga, "Jumlah": jumlah, "Subtotal": jumlah * harga})
-        st.session_state.stok[nama] -= jumlah  # Kurangi stok sementara
+        st.session_state.stok[nama] -= jumlah  # Kurangi stok
+        simpan_stok(st.session_state.stok)  # Simpan perubahan stok ke file
         st.success(f"{nama} berhasil ditambahkan ke keranjang!")
     elif jumlah > stok:
         st.error(f"Jumlah melebihi stok tersedia ({stok}).")
@@ -105,60 +125,4 @@ elif st.session_state.page == "Katalog" and st.session_state.logged_in:
                 st.error("Stok habis!")
 
     if st.button("Lihat Keranjang"):
-        ganti_halaman("Keranjang")
-
-# Halaman Keranjang
-elif st.session_state.page == "Keranjang" and st.session_state.logged_in:
-    st.title("Keranjang Belanja Anda")
-    
-    if st.session_state.keranjang:
-        total_harga = sum(item["Subtotal"] for item in st.session_state.keranjang)
-        st.session_state.total_harga = total_harga
-        
-        for idx, item in enumerate(st.session_state.keranjang):
-            st.write(f"{idx+1}. *{item['Nama']}* - {item['Jumlah']} x Rp {item['Harga']:,} = Rp {item['Subtotal']:,}")
-        
-        st.markdown("### Total Harga Sebelum Diskon")
-        st.write(f"*Rp {total_harga:,}*")
-        
-        voucher = st.text_input("Masukkan kode voucher (opsional):")
-        if st.button("Gunakan Voucher"):
-            if voucher == "DISKON10":
-                st.session_state.diskon = 0.1 * total_harga
-                st.success("Voucher berhasil digunakan! Diskon 10% diterapkan.")
-            else:
-                st.warning("Kode voucher tidak valid.")
-        
-        total_setelah_diskon = total_harga - st.session_state.diskon
-        st.markdown("### Total Harga Setelah Diskon")
-        st.write(f"*Rp {total_setelah_diskon:,}*")
-        
-        if st.button("Lanjutkan ke Pembayaran"):
-            ganti_halaman("Pembayaran")
-    else:
-        st.info("Keranjang Anda kosong.")
-        if st.button("Kembali ke Katalog"):
-            ganti_halaman("Katalog")
-
-# Halaman Pembayaran
-elif st.session_state.page == "Pembayaran" and st.session_state.logged_in:
-    st.title("Konfirmasi Pembayaran")
-    
-    st.markdown("### Rincian Pesanan")
-    for idx, item in enumerate(st.session_state.keranjang):
-        st.write(f"{idx+1}. *{item['Nama']}* - {item['Jumlah']} x Rp {item['Harga']:,} = Rp {item['Subtotal']:,}")
-    
-    st.markdown("### Total Harga")
-    st.write(f"*Rp {st.session_state.total_harga - st.session_state.diskon:,}*")
-    
-    st.markdown("### Estimasi Pengiriman")
-    st.write("Pesanan Anda akan dikirim dalam waktu 2-3 hari kerja.")
-    
-    if st.button("Konfirmasi Pembayaran"):
-        st.success("Pesanan Anda berhasil diproses! Terima kasih.")
-        st.session_state.keranjang = []
-        st.session_state.total_harga = 0
-        st.session_state.diskon = 0
-        ganti_halaman("Katalog")
-    elif st.button("Kembali ke Keranjang"):
         ganti_halaman("Keranjang")
