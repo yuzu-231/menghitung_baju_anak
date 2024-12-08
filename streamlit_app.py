@@ -74,6 +74,6 @@ st.sidebar.markdown("""
 
 - *Jam Operasional:* 10.00 - 16.00 WIB
 
-- *Untuk informasi lebih lanjut bisa kunjungi instagram kami di @: Macdelight_98
+ Untuk informasi lebih lanjut bisa kunjungi instagram kami di @Macdelight_98
 
 """)
