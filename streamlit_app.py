@@ -68,7 +68,12 @@ else:
 # Informasi tambahan
 st.sidebar.title("Informasi Toko")
 st.sidebar.markdown("""
-- *Alamat:* Jl. Mawar No. 123
-- *Telepon:* 0812-3456-7890
-- *Jam Operasional:* 08.00 - 20.00
+- *Alamat:*: Jl. Batu Tumbuh 3 No.27a RT.5/RW.4 Kel. Tugu Selatan Kec. Koja Jakarta  Utara 14260
+
+- *Telepon:* : 0889-7338-0565 
+
+- *Jam Operasional:* 10.00 - 16.00 WIB
+
+- *Untuk informasi lebih lanjut bisa kunjungi instagram kami di @: Macdelight_98
+
 """)
