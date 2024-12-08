@@ -2,6 +2,8 @@ import streamlit as st
 from PIL import Image
 import requests
 from io import BytesIO
+import tkinter as tk
+from tkinter import messagebox
 
 # Judul aplikasi
 st.title("Katalog Toko Baju Andalan")
@@ -46,11 +48,6 @@ for baju in baju_anak:
         st.write(f"Harga: Rp {baju['Harga']:,}")
         jumlah = st.number_input(f"Jumlah untuk {baju['Nama']}", min_value=0, max_value=10, step=1, key=baju["Nama"])
         total_harga += jumlah * baju["Harga"]
-
-
-import tkinter as tk
-from tkinter import messagebox
-
 
 class ShoppingCartApp:
     def _init_(self, root):
