@@ -117,7 +117,7 @@ elif st.session_state.page == "Pembayaran" and st.session_state.logged_in:
     st.write(f"*Rp {st.session_state.total_harga - st.session_state.diskon:,}*")
     
     st.markdown("### Estimasi Pengiriman")
-    st.write("Pesanan Anda akan dikirim dalam waktu 2-3 hari kerja.")
+    st.write("Pesanan Anda akan dikirim dalam waktu 2-3 hari")
     
     if st.button("Konfirmasi Pembayaran"):
         st.success("Pesanan Anda berhasil diproses! Terima kasih.")
