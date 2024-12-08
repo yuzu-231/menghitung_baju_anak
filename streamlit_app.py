@@ -93,4 +93,4 @@ elif st.session_state.page == "Pembayaran":
         st.session_state.total_harga = 0
         ganti_halaman("Katalog")
     elif st.button("Kembali ke Pesanan"):
-        ganti_halaman("Page")
+        ganti_halaman("Katalog")
