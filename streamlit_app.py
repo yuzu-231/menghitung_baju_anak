@@ -24,16 +24,16 @@ def simpan_data(file, data):
 # Data awal
 users = baca_data(USER_DATA_FILE, [])
 stok_awal = {
-    "Baju Anak Motif Dinosaurus": {"stok": 10, "harga": 100000},
-    "Baju Anak Motif Bunga": {"stok": 15, "harga": 95000},
-    "Baju Anak Motif Mobil": {"stok": 8, "harga": 105000},
-    "Baju Anak Motif Hewan": {"stok": 5, "harga": 110000},
-    "Baju Anak Motif Buah": {"stok": 12, "harga": 98000},
-    "Baju Anak Motif Kartun": {"stok": 7, "harga": 120000},
-    "Baju Anak Motif Polkadot": {"stok": 20, "harga": 90000},
-    "Baju Anak Motif Pelangi": {"stok": 18, "harga": 115000},
-    "Baju Anak Motif Bintang": {"stok": 12, "harga": 100000},
-    "Baju Anak Motif Luar Angkasa": {"stok": 10, "harga": 92000},
+    "Baju Anak Motif Dinosaurus": 10,
+    "Baju Anak Motif Bunga": 15,
+    "Baju Anak Motif Mobil": 8,
+    "Baju Anak Motif Hewan": 5,
+    "Baju Anak Motif Buah": 12,
+    "Baju Anak Motif Kartun": 7,
+    "Baju Anak Motif Polkadot": 20,
+    "Baju Anak Motif Pelangi": 18,
+    "Baju Anak Motif Bintang": 12,
+    "Baju Anak Motif Luar Angkasa": 10,
 }
 stok = baca_data(STOK_FILE, stok_awal)
 
@@ -44,6 +44,8 @@ if "keranjang" not in st.session_state:
     st.session_state.keranjang = []
 if "user_logged_in" not in st.session_state:
     st.session_state.user_logged_in = None
+if "total_harga" not in st.session_state:
+    st.session_state.total_harga = 0
 
 # Fungsi navigasi
 def navigate(page):
@@ -85,22 +87,17 @@ if st.session_state.page == "Login":
 # Halaman Katalog
 elif st.session_state.page == "Katalog":
     st.title("Katalog Baju Anak")
-    for nama, data in stok.items():
+    for nama, stok_produk in stok.items():
         col1, col2 = st.columns([2, 1])
         with col1:
             st.subheader(nama)
-            st.write(f"Stok: {data['stok']}")
-            st.write(f"Harga: Rp {data['harga']:,}")
+            st.write(f"Stok: {stok_produk}")
         with col2:
-            jumlah = st.number_input(f"Jumlah {nama}", min_value=0, max_value=data["stok"], step=1, key=f"jumlah_{nama}")
+            jumlah = st.number_input(f"Jumlah {nama}", min_value=0, max_value=stok_produk, step=1, key=f"jumlah_{nama}")
             if st.button(f"Tambah {nama} ke Keranjang", key=f"btn_{nama}"):
                 if jumlah > 0:
-                    stok[nama]["stok"] -= jumlah
-                    st.session_state.keranjang.append({
-                        "Nama": nama,
-                        "Jumlah": jumlah,
-                        "Harga": data["harga"],
-                    })
+                    stok[nama] -= jumlah
+                    st.session_state.keranjang.append({"Nama": nama, "Jumlah": jumlah})
                     simpan_data(STOK_FILE, stok)
                     st.success(f"{jumlah} {nama} ditambahkan ke keranjang.")
                 else:
@@ -113,11 +110,11 @@ elif st.session_state.page == "Katalog":
 elif st.session_state.page == "Keranjang":
     st.title("Keranjang Belanja")
     if st.session_state.keranjang:
-        total_harga = 0
+        total = 0
         for item in st.session_state.keranjang:
-            st.write(f"{item['Nama']} - Jumlah: {item['Jumlah']} - Subtotal: Rp {item['Jumlah'] * item['Harga']:,}")
-            total_harga += item["Jumlah"] * item["Harga"]
-        st.write(f"Total Harga: Rp {total_harga:,}")
+            st.write(f"{item['Nama']} - Jumlah: {item['Jumlah']}")
+            total += item["Jumlah"]
+        st.write(f"Total Barang: {total}")
 
         if st.button("Lanjutkan ke Pembayaran"):
             navigate("Pembayaran")
@@ -128,19 +125,8 @@ elif st.session_state.page == "Keranjang":
 elif st.session_state.page == "Pembayaran":
     st.title("Pembayaran")
     kode_voucher = st.text_input("Kode Voucher (Opsional)")
-    diskon = 0
-    total_harga = sum(item["Jumlah"] * item["Harga"] for item in st.session_state.keranjang)
-    if kode_voucher == "DISKON10":
-        diskon = total_harga * 0.1
-    total_setelah_diskon = total_harga - diskon
-
-    st.write(f"Total Harga: Rp {total_harga:,}")
-    st.write(f"Diskon: Rp {diskon:,}")
-    st.write(f"Total Setelah Diskon: Rp {total_setelah_diskon:,}")
-
+    st.write("Total Harga: Rp xxx")
     if st.button("Bayar"):
-        st.session_state.keranjang.clear()
-        simpan_data(STOK_FILE, stok)
         navigate("Konfirmasi")
 
 # Halaman Konfirmasi
@@ -149,8 +135,3 @@ elif st.session_state.page == "Konfirmasi":
     st.success("Terima kasih atas pembelian Anda!")
     if st.button("Kembali ke Katalog"):
         navigate("Katalog")
-
-# Help Center
-elif st.session_state.page == "Help Center":
-    st.title("Help Center")
-    st.text_area("Ada yang bisa kami bantu?", key="help_chat")
